@@ -31,7 +31,7 @@ public class PlayerInputSystem : NetworkBehaviour
     }
     private void Update() {
         if(isLocalPlayer) {
-            var velocity = _movementAction.ReadValue<Vector2>();
+            Velocity = _movementAction.ReadValue<Vector2>();
         }
     }
 }
