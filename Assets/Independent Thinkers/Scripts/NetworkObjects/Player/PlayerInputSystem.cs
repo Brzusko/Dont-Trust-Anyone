@@ -8,7 +8,7 @@ public class PlayerInputSystem : NetworkBehaviour
     #region ServerVars // s_ stands for server
     public Vector2 s_pointerPos {get; private set;}
     public Vector2 s_movementInput {get; private set;}
-    public PointerDirection PointerDir {get; private set;}
+    public LookDirection pointerDir;
     #endregion
     public Vector2 LocalVelocity {get; private set;}
     public Vector2 PointerPos {get; private set;}
@@ -33,9 +33,9 @@ public class PlayerInputSystem : NetworkBehaviour
         s_pointerPos = mousePos;
         var playerToMouse = -(Vector2)(transform.position - (Vector3)s_pointerPos);
         var playerToMouseDir = Vector2.Dot(Vector2.right, playerToMouse);
-        PointerDir = playerToMouseDir < 0 ?
-            PointerDirection.LEFT :
-            PointerDirection.RIGHT;
+        pointerDir = playerToMouseDir < 0 ?
+            LookDirection.LEFT :
+            LookDirection.RIGHT;
         
     }
     #endregion
