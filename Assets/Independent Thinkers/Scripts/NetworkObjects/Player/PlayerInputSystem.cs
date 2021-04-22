@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using Mirror;
+using Indepndent.Enums;
 
 public class PlayerInputSystem : NetworkBehaviour
 {
     #region ServerVars // s_ stands for server
     public Vector2 s_pointerPos {get; private set;}
     public Vector2 s_movementInput {get; private set;}
+    public PointerDirection PointerDir {get; private set;}
     #endregion
     public Vector2 LocalVelocity {get; private set;}
     public Vector2 PointerPos {get; private set;}
@@ -21,16 +23,20 @@ public class PlayerInputSystem : NetworkBehaviour
     #region Client Methods
     [Command]
     private void ReciveMovementInput(Vector2 unitVector) {
-        Debug.Log("Reciving movement input from client");
         if (unitVector == s_movementInput) return;
-        s_movementInput = unitVector;
+        s_movementInput = unitVector; 
     }
 
     [Command]
     private void ReciveMouseInput(Vector2 mousePos) {
-        Debug.Log("Reciving mouse input from client");
         if (mousePos == s_pointerPos) return;
         s_pointerPos = mousePos;
+        var playerToMouse = -(Vector2)(transform.position - (Vector3)s_pointerPos);
+        var playerToMouseDir = Vector2.Dot(Vector2.right, playerToMouse);
+        PointerDir = playerToMouseDir < 0 ?
+            PointerDirection.LEFT :
+            PointerDirection.RIGHT;
+        
     }
     #endregion
     public override void OnStartLocalPlayer() {

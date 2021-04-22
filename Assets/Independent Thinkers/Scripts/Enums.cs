@@ -4,4 +4,10 @@
         FIRST,
         SECOND
     }
+
+    public enum PointerDirection {
+        NONE,
+        LEFT,
+        RIGHT
+    }
 }
