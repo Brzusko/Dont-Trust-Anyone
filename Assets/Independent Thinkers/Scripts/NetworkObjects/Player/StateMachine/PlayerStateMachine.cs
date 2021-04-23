@@ -21,6 +21,17 @@ public class PlayerStateMachine : NetworkBehaviour, IStateMachine
                     NextStates = new string[] { typeof(IdleAttackState).Name, typeof(MoveState).Name }
                 }
             },
+            {
+                typeof(MoveState).Name, new MoveState {
+                    StateMachine = this,
+                    PlayerObject = this.gameObject,
+                    NextStates = new string[] {
+                        typeof(IdleState).Name,
+                        typeof(MoveAttackState).Name,
+                        typeof(MoveBlockState).Name,
+                    }
+                }
+            },
         };
         Transist(typeof(IdleState).Name);
     }

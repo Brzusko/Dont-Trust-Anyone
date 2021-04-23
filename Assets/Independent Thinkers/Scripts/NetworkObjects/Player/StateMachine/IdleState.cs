@@ -9,8 +9,15 @@ public class IdleState : IState
     public GameObject PlayerObject { get; set; }
     public IStateMachine StateMachine { get; set; }
 
+    private Animator _animator;
+    private bool firstRun = true;
+
     public void BeginTransition()
     {
+        if(firstRun) {
+            _animator = PlayerObject.GetComponent<Animator>();
+        }
+        _animator.SetBool("isRunning", false);
         Debug.Log("Starts Idle");
     }
 
