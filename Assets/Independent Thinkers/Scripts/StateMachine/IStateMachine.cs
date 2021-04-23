@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿
 public interface IStateMachine
 {
+    void Execute();
+    void Transist(string nextState);
 }
