@@ -3,34 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class IdleState : NetworkBehaviour, IState
+public class IdleState : IState
 {
-    public IState NextState { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    public GameObject PlayerObject { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public string[] NextStates { get; set; } // 0 - IdleAttack, 1 - MoveState
+    public GameObject PlayerObject { get; set; }
+    public IStateMachine StateMachine { get; set; }
 
     public void BeginTransition()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Starts Idle");
     }
 
     public void EndTransition()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Ends Idle");
     }
     public void Execute(float deltaTime, AbstractInput input)
     {
-        throw new System.NotImplementedException();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+       PlayerStateMachine.PlayerStateInput _input = (PlayerStateMachine.PlayerStateInput)input;
+       if(_input.UnitVector.magnitude != 0) {
+           StateMachine.Transist(NextStates[1]);
+           return;
+       }
+       if(_input.LeftAttackState) {
+           StateMachine.Transist(NextStates[0]);
+           return;
+       }
     }
 }

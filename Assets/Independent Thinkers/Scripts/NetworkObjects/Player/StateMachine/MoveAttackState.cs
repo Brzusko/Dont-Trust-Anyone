@@ -5,8 +5,9 @@ using Mirror;
 
 public class MoveAttackState : IState
 {
-    public IState NextState { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public string[] NextStates { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
     public GameObject PlayerObject { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public IStateMachine StateMachine { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
     public void BeginTransition()
     {
