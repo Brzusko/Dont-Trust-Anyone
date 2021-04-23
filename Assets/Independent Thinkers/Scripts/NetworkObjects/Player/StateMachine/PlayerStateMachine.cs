@@ -10,7 +10,9 @@ public class PlayerStateMachine : NetworkBehaviour, IStateMachine
 
     public override void OnStartServer()
     {
-        _states = new Dictionary<string, IState>();
+        _states = new Dictionary<string, IState>{
+            
+        };
     }
 
     [ServerCallback]
@@ -21,5 +23,12 @@ public class PlayerStateMachine : NetworkBehaviour, IStateMachine
     [ServerCallback]
     public void Transist(string nextState) {
 
+    }
+
+    private class PlayerStateInput : AbstractInput {
+        public Vector2 UnitVector {get;set;}
+        public Vector2 PointerDirection {get;set;}
+        public bool LeftAttackState{get;set;}
+        public bool BlockState{get;set;}
     }
 }

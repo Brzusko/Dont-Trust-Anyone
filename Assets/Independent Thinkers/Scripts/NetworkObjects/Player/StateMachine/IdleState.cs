@@ -6,6 +6,7 @@ using Mirror;
 public class IdleState : NetworkBehaviour, IState
 {
     public IState NextState { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public GameObject PlayerObject { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
 
     public void BeginTransition()
     {
@@ -16,8 +17,7 @@ public class IdleState : NetworkBehaviour, IState
     {
         throw new System.NotImplementedException();
     }
-
-    public void Execute(float deltaTime)
+    public void Execute(float deltaTime, AbstractInput input)
     {
         throw new System.NotImplementedException();
     }
