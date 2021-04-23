@@ -16,7 +16,9 @@ GameObject:
   - component: {fileID: 1615751539}
   - component: {fileID: 342640672600337379}
   - component: {fileID: 5150764220736797505}
-  - component: {fileID: 3974112542355087082}
+  - component: {fileID: 3454805457723572098}
+  - component: {fileID: 2369526292178256670}
+  - component: {fileID: 6651921226793222578}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -191,6 +193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  pointerDir: 0
 --- !u!114 &5150764220736797505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,7 +210,7 @@ MonoBehaviour:
   syncInterval: 0.1
   clientAuthority: 0
   animator: {fileID: 8930246666648745542}
---- !u!114 &3974112542355087082
+--- !u!114 &3454805457723572098
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -216,8 +219,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 8930246666648745543}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17d4572936ab19b4b82866589db76daf, type: 3}
+  m_Script: {fileID: 11500000, guid: 66cc6a1047090fe4b87a58167f9f3de4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+--- !u!114 &2369526292178256670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8930246666648745543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeb8beeb133ceb9498ba4f2acb33fd3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+--- !u!114 &6651921226793222578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8930246666648745543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  animator: {fileID: 8930246666648745542}

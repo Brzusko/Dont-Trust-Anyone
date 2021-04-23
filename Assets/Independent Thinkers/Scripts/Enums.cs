@@ -5,7 +5,7 @@
         SECOND
     }
 
-    public enum PointerDirection {
+    public enum LookDirection {
         NONE,
         LEFT,
         RIGHT
