@@ -13,11 +13,16 @@ config_version=4
 config/name="Don't Trust Anyone"
 config/icon="res://icon.png"
 
+[autoload]
+
+Enums="*res://Autoload/Enums.tscn"
+Networking="*res://Autoload/Networking.tscn"
+Clock="*res://Autoload/Clock.tscn"
+
 [physics]
 
 common/enable_pause_aware_picking=true
 
 [rendering]
 
-quality/driver/driver_name="GLES3"
 environment/default_environment="res://default_env.tres"
