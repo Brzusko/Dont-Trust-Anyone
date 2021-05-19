@@ -11,6 +11,7 @@ config_version=4
 [application]
 
 config/name="Don't Trust Anyone"
+run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -18,6 +19,10 @@ config/icon="res://icon.png"
 Enums="*res://Autoload/Enums.tscn"
 Networking="*res://Autoload/Networking.tscn"
 Clock="*res://Autoload/Clock.tscn"
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/ClientSpawner/plugin.cfg" )
 
 [physics]
 
