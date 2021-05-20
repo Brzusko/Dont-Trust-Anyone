@@ -6,3 +6,21 @@ enum APP_TYPE {
 	CLIENT,
 	NONE
 }
+
+enum LOOK_SIDE {
+	UP,
+	DOWN,
+	NONE
+}
+
+enum MOVE_DIR {
+	UP,
+	UP_LEFT,
+	UP_RIGHT,
+	DOWN,
+	DOWN_LEFT,
+	DOWN_RIGHT,
+	LEFT,
+	RIGHT,
+	NONE
+}

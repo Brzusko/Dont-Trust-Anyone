@@ -12,7 +12,6 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-server_address = NodePath("Container/BottomContainer/HBoxContainer/ServerPath")
 
 [node name="Container" type="VBoxContainer" parent="."]
 anchor_right = 1.0
@@ -75,3 +74,4 @@ placeholder_alpha = 0.541
 [connection signal="pressed" from="Container/BottomContainer/HostBTN" to="." method="_on_HostBTN_pressed"]
 [connection signal="pressed" from="Container/BottomContainer/ServerBTN" to="." method="_on_ServerBTN_pressed"]
 [connection signal="pressed" from="Container/BottomContainer/HBoxContainer/ConnectBTN" to="." method="_on_ConnectBTN_pressed"]
+[connection signal="text_changed" from="Container/BottomContainer/HBoxContainer/ServerPath" to="." method="_on_ServerPath_text_changed"]
