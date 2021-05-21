@@ -30,6 +30,7 @@ Enums="*res://Autoload/Enums.tscn"
 Networking="*res://Autoload/Networking.tscn"
 Clock="*res://Autoload/Clock.tscn"
 Globals="*res://Autoload/Globals.tscn"
+Utils="*res://Autoload/Utils.tscn"
 
 [editor_plugins]
 

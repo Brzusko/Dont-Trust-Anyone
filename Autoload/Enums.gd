@@ -10,6 +10,8 @@ enum APP_TYPE {
 enum LOOK_SIDE {
 	UP,
 	DOWN,
+	LEFT,
+	RIGHT,
 	NONE
 }
 
