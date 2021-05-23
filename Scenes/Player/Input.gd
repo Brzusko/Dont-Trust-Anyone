@@ -1,7 +1,8 @@
 extends Node2D
+class_name StateInput
 
-mastersync var s_move_dir: int = Enums.MOVE_DIR.NONE;
-mastersync var s_look_dir: int = Enums.LOOK_SIDE.NONE;
+master var s_move_dir: int = Enums.MOVE_DIR.NONE;
+master var s_look_dir: int = Enums.LOOK_SIDE.NONE;
 
 var local_move_dir: int = Enums.MOVE_DIR.NONE;
 var local_look_side: int = Enums.LOOK_SIDE.NONE;
@@ -70,6 +71,9 @@ func _process(delta):
 	
 	update();
 	
+	if !is_network_master():
+		print(get_networked_input());
+	
 func check_cache() -> void:
 	var send_to_serv: bool = false;
 	
@@ -89,6 +93,7 @@ func check_cache() -> void:
 	
 	if send_to_serv:
 		rset_unreliable_id(1, "s_move_dir", local_move_dir);
+		rset_unreliable_id(1, "s_look_dir", local_look_side);
 		pass;
 	
 
@@ -107,17 +112,22 @@ func process_inputs() -> void:
 
 func _input(event):
 	if event is InputEventMouseMotion:
-		mouse_dir = get_local_mouse_position().normalized();
+		mouse_dir;
 		
 		if local_cache.look_side_vec2.dot(mouse_dir) >= Globals.AREA_DOT:
 			local_aim_dir = mouse_dir;
 		
-		if local_cache.look_side_vec2.dot(local_aim_dir.rotated(deg2rad(45))) >= Globals.AREA_DOT:
-			aim_vertices[0] = local_aim_dir.rotated(deg2rad(45));
+		if local_cache.look_side_vec2.dot(local_aim_dir.rotated(deg2rad(Globals.MEELE_ANGLE))) >= Globals.AREA_DOT:
+			aim_vertices[0] = local_aim_dir.rotated(deg2rad(Globals.MEELE_ANGLE));
 		
-		if local_cache.look_side_vec2.dot(local_aim_dir.rotated(deg2rad(-45))) >= Globals.AREA_DOT:
-			aim_vertices[1] = local_aim_dir.rotated(deg2rad(-45));
+		if local_cache.look_side_vec2.dot(local_aim_dir.rotated(deg2rad(-Globals.MEELE_ANGLE))) >= Globals.AREA_DOT:
+			aim_vertices[1] = local_aim_dir.rotated(deg2rad(-Globals.MEELE_ANGLE));
 
+func get_networked_input() -> Dictionary:
+	return {
+		"s_move_dir": s_move_dir,
+		"s_look_dir": s_look_dir
+	}
 
 func _draw() -> void:
 	if !parent.is_local:
@@ -128,3 +138,4 @@ func _draw() -> void:
 	draw_line(Vector2.ZERO, fov[1].normalized() * 100, Color.red);
 	for vec in aim_vertices:
 		draw_line(Vector2.ZERO, vec * 100, Color.green);
+	pass;

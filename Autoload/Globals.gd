@@ -5,3 +5,4 @@ const MAX_PLAYERS = 32;
 const PORT = 7171;
 
 const AREA_DOT = 0.15;
+const MEELE_ANGLE = 22.5;

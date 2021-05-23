@@ -2,8 +2,8 @@ extends Node
 
 enum APP_TYPE {
 	HOST,
-	SERVER,
 	CLIENT,
+	SERVER,
 	NONE
 }
 
@@ -16,13 +16,13 @@ enum LOOK_SIDE {
 }
 
 enum MOVE_DIR {
-	UP,
-	UP_LEFT,
-	UP_RIGHT,
-	DOWN,
-	DOWN_LEFT,
-	DOWN_RIGHT,
 	LEFT,
+	UP_LEFT,
+	DOWN_LEFT,
+	UP_RIGHT,
 	RIGHT,
+	DOWN_RIGHT
+	DOWN,
+	UP,
 	NONE
 }

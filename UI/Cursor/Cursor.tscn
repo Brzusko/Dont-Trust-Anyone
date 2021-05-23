@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://UI/Cursor/cursor.png" type="Texture" id=1]
+[ext_resource path="res://UI/Cursor/Cursor.gd" type="Script" id=2]
+
+[node name="Cursor" type="TextureRect"]
+visible = false
+anchor_right = 0.031
+anchor_bottom = 0.054
+margin_left = 0.205402
+margin_top = 0.324329
+margin_right = 0.461401
+margin_bottom = -0.0756721
+rect_scale = Vector2( 2, 2 )
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
