@@ -9,6 +9,8 @@ var local_look_side: int = Enums.LOOK_SIDE.NONE;
 var local_look_side_vec2: Vector2 = Vector2.ZERO;
 var local_aim_dir: Vector2 = Vector2.ZERO;
 
+var intersect_point: Vector2 = Vector2.ZERO;
+
 var aim_vertices: Array = [
 	Vector2.LEFT,
 	Vector2.RIGHT,
@@ -83,6 +85,10 @@ func check_cache() -> void:
 	
 	if local_cache.look_side != local_look_side && local_look_side != Enums.LOOK_SIDE.NONE:
 		local_cache.look_side = local_look_side;
+		GameUi.change_cursor_pos(vector_map[local_look_side] * 100);
+		local_aim_dir = vector_map[local_look_side];
+		aim_vertices[0] = local_aim_dir.rotated(deg2rad(Globals.MEELE_ANGLE));
+		aim_vertices[1] = local_aim_dir.rotated(deg2rad(-Globals.MEELE_ANGLE));
 		send_to_serv = true;
 	
 	if local_cache.look_side_vec2 != local_look_side_vec2 && local_look_side != Enums.LOOK_SIDE.NONE:
@@ -112,10 +118,13 @@ func process_inputs() -> void:
 
 func _input(event):
 	if event is InputEventMouseMotion:
-		mouse_dir;
+		mouse_dir = GameUi.get_cursor_local_pos();
 		
 		if local_cache.look_side_vec2.dot(mouse_dir) >= Globals.AREA_DOT:
 			local_aim_dir = mouse_dir;
+			intersect_point = GameUi.get_cursor_pos();
+		else:
+			GameUi.set_cursor_pos(intersect_point);
 		
 		if local_cache.look_side_vec2.dot(local_aim_dir.rotated(deg2rad(Globals.MEELE_ANGLE))) >= Globals.AREA_DOT:
 			aim_vertices[0] = local_aim_dir.rotated(deg2rad(Globals.MEELE_ANGLE));

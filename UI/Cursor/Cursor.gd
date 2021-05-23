@@ -31,16 +31,22 @@ func can_move() -> bool:
 
 func move_cursor_relative_to_center(to_point: Vector2) -> void:
 	var center = Vector2(get_viewport().size.x/2, get_viewport().size.y/2);
-	margin_left = center.x - (rect_size.y/2);
-	margin_top = center.y - (rect_size.y/2);
+	margin_left = (center.x - (rect_size.y/2) + to_point.x);
+	margin_top = (center.y - (rect_size.y/2) + to_point.y);
 
 func get_cursor_pos_from_center() -> Vector2:
 	var center = Vector2(get_viewport().size.x/2, get_viewport().size.y/2);
 	var cursor_pos = Vector2(margin_left, margin_top);
 	var pos = center - cursor_pos;
-	return pos.normalized();
+	return -pos.normalized();
 
-func turn_on():
+func get_cursor_pos() -> Vector2:
+	return Vector2(margin_left, margin_top);
+
+func freeze(to_freeze: bool):
+	is_visible = !to_freeze;
+
+func turn_on() -> void:
 	show();
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED);
 	move_cursor_relative_to_center(Vector2.ZERO);
@@ -56,3 +62,7 @@ func on_network_init() -> void:
 
 func on_network_destroy() -> void:
 	turn_off();
+
+func set_pos(new_pos: Vector2) -> void:
+	margin_left = new_pos.x;
+	margin_top = new_pos.y;
