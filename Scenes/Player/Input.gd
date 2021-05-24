@@ -73,8 +73,6 @@ func _process(delta):
 	
 	update();
 	
-	if !is_network_master():
-		print(get_networked_input());
 	
 func check_cache() -> void:
 	var send_to_serv: bool = false;
@@ -117,7 +115,7 @@ func process_inputs() -> void:
 	local_look_side_vec2 = vector_map[local_look_side];
 
 func _input(event):
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion && parent.is_local:
 		mouse_dir = GameUi.get_cursor_local_pos();
 		
 		if local_cache.look_side_vec2.dot(mouse_dir) >= Globals.AREA_DOT:

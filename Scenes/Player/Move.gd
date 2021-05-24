@@ -20,7 +20,6 @@ onready var kinematic_body: KinematicBody2D = get_node(kinematic_body_path);
 var animation_tree: AnimationTree;
 onready var head: Sprite = get_node(head_path);
 onready var body: Sprite = get_node(body_path);
-onready var stats = get_node(stats_path);
 
 var move_dir_cache: int = -1;
 

@@ -8,5 +8,8 @@ func clamp_vec2_by_area(clampv2: Vector2, leftv2: Vector2, rightv2: Vector2) -> 
 	var clamped_y = clamp(clampv2.y, leftv2.y, rightv2.y);
 	return Vector2(clamped_x, clamped_y);
 
+func vec2_sub_by_scalar(vector: Vector2, scalar) -> Vector2:
+	return Vector2(vector.x - scalar, vector.y - scalar);
+
 func get_node_up(node: NodePath) -> NodePath:
 	return NodePath(node.get_name(1));

@@ -15,30 +15,29 @@ func _input(event):
 			margin_left += relative_pos.x;
 			margin_top += relative_pos.y;
 		else:
-			if margin_left <= 0:
-				margin_left = 1;
-			if (margin_left + rect_size.x) >= get_viewport().size.x:
-				margin_left += get_viewport().size.x - (margin_left + rect_size.x)
-			if margin_top <= 0:
-				margin_top = 1;
-			if (margin_top + rect_size.y) >= get_viewport().size.y:
-				margin_top += get_viewport().size.y - (margin_top + rect_size.y);
-
+			var cursor_pos = get_cursor_pos_from_center_not_normal();
+			move_cursor_relative_to_center(cursor_pos * 0.99);
+			
 func can_move() -> bool:
-	var x_bound = margin_left >= 0 && (margin_left + rect_size.x) <= get_viewport().size.x;
-	var y_bound = margin_top >= 0 && (margin_top + rect_size.y) <= get_viewport().size.y;
-	return x_bound && y_bound;
+	var cursor_relative_pos = get_cursor_pos_from_center_not_normal();
+	return cursor_relative_pos.length() <= 150;
 
 func move_cursor_relative_to_center(to_point: Vector2) -> void:
 	var center = Vector2(get_viewport().size.x/2, get_viewport().size.y/2);
-	margin_left = (center.x - (rect_size.y/2) + to_point.x);
-	margin_top = (center.y - (rect_size.y/2) + to_point.y);
+	margin_left = (center.x + to_point.x);
+	margin_top = (center.y + to_point.y);
 
 func get_cursor_pos_from_center() -> Vector2:
 	var center = Vector2(get_viewport().size.x/2, get_viewport().size.y/2);
 	var cursor_pos = Vector2(margin_left, margin_top);
 	var pos = center - cursor_pos;
 	return -pos.normalized();
+
+func get_cursor_pos_from_center_not_normal() -> Vector2:
+	var center = Vector2(get_viewport().size.x/2, get_viewport().size.y/2);
+	var cursor_pos = Vector2(margin_left, margin_top);
+	var pos = center - cursor_pos;
+	return -pos;
 
 func get_cursor_pos() -> Vector2:
 	return Vector2(margin_left, margin_top);
@@ -58,9 +57,13 @@ func turn_off():
 	is_visible = false;
 
 func on_network_init() -> void:
+	if Networking.app_state == Enums.APP_TYPE.SERVER:
+		return;
 	turn_on();
 
 func on_network_destroy() -> void:
+	if Networking.app_state == Enums.APP_TYPE.SERVER:
+		return;
 	turn_off();
 
 func set_pos(new_pos: Vector2) -> void:

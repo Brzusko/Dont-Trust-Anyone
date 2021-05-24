@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Assets/Player/Knight-body.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Player/Player.gd" type="Script" id=2]
@@ -9,7 +9,6 @@
 [ext_resource path="res://Scenes/Player/Idle.gd" type="Script" id=7]
 [ext_resource path="res://Scenes/Player/Move.gd" type="Script" id=8]
 [ext_resource path="res://Scenes/Player/Health.gd" type="Script" id=9]
-[ext_resource path="res://Scenes/Player/EntityStats.gd" type="Script" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 6.9863, 7.42043 )
@@ -90,7 +89,7 @@ nodes/TimeScale/position = Vector2( 42, 231 )
 nodes/Transition/node = SubResource( 8 )
 nodes/Transition/position = Vector2( 273, 105 )
 nodes/output/position = Vector2( 567, 126 )
-node_connections = [ "output", 0, "Transition", "Transition", 0, "TimeScale 2", "Transition", 1, "TimeScale", "TimeScale", 0, "Run", "TimeScale 2", 0, "Idle" ]
+node_connections = [ "output", 0, "Transition", "TimeScale", 0, "Run", "TimeScale 2", 0, "Idle", "Transition", 0, "TimeScale 2", "Transition", 1, "TimeScale" ]
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -101,7 +100,7 @@ position = Vector2( 0, -16 )
 texture = ExtResource( 1 )
 hframes = 8
 vframes = 2
-frame = 1
+frame = 2
 
 [node name="Head" type="Sprite" parent="."]
 position = Vector2( -0.396851, -16.2623 )
@@ -130,7 +129,6 @@ kinematic_body_path = NodePath("../..")
 animation_tree_path = NodePath("../../AnimationTree")
 head_path = NodePath("../../Head")
 body_path = NodePath("../../Body")
-stats_path = NodePath("../../EntityStats")
 move_speed = 100.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -148,14 +146,7 @@ parameters/Transition/current = 0
 [node name="Health" type="Area2D" parent="."]
 position = Vector2( 0, -8 )
 script = ExtResource( 9 )
-stats_path = NodePath("../EntityStats")
 
 [node name="Collision" type="CollisionShape2D" parent="Health"]
 position = Vector2( -0.198425, 0.0224299 )
 shape = SubResource( 1 )
-
-[node name="EntityStats" type="Node" parent="."]
-script = ExtResource( 10 )
-max_health = 100.0
-max_mana = 10.0
-movement_speed = 100.0

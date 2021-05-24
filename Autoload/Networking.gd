@@ -30,7 +30,6 @@ func s_create_server() -> void:
 	
 	if _err != OK:
 		return;
-	
 	get_tree().network_peer = network;
 	app_state = Enums.APP_TYPE.SERVER;
 	s_connect_events();
