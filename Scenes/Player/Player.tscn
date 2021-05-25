@@ -89,7 +89,7 @@ nodes/TimeScale/position = Vector2( 42, 231 )
 nodes/Transition/node = SubResource( 8 )
 nodes/Transition/position = Vector2( 273, 105 )
 nodes/output/position = Vector2( 567, 126 )
-node_connections = [ "output", 0, "Transition", "TimeScale", 0, "Run", "TimeScale 2", 0, "Idle", "Transition", 0, "TimeScale 2", "Transition", 1, "TimeScale" ]
+node_connections = [ "output", 0, "Transition", "TimeScale 2", 0, "Idle", "TimeScale", 0, "Run", "Transition", 0, "TimeScale 2", "Transition", 1, "TimeScale" ]
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -100,7 +100,7 @@ position = Vector2( 0, -16 )
 texture = ExtResource( 1 )
 hframes = 8
 vframes = 2
-frame = 2
+frame = 1
 
 [node name="Head" type="Sprite" parent="."]
 position = Vector2( -0.396851, -16.2623 )

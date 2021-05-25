@@ -16,6 +16,7 @@ func setup(player_name, init_pos) -> void:
 		add_child(camera);
 		is_local = true;
 		$AnimationTree.active = true;
+		$Input.generate_data();
 
 master func serialize() -> Dictionary:
 	return {

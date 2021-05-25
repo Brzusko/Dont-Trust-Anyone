@@ -72,7 +72,31 @@ func _process(delta):
 	check_cache();
 	
 	update();
+
+func generate_data() -> void:
+	local_move_dir = Enums.MOVE_DIR.UP;
+	local_look_side = Enums.LOOK_SIDE.UP;
+	local_look_side_vec2 = Vector2.UP;
+	local_aim_dir = Vector2.UP;
 	
+	aim_vertices[0] = local_aim_dir.rotated(deg2rad(Globals.MEELE_ANGLE));
+	aim_vertices[1] = local_aim_dir.rotated(deg2rad(-Globals.MEELE_ANGLE));
+	
+	GameUi.change_cursor_pos(vector_map[local_look_side] * 100);
+	mouse_dir = GameUi.get_cursor_local_pos();
+	
+	fov[0] = local_cache.look_side_vec2.rotated(deg2rad(80));
+	fov[1] = local_cache.look_side_vec2.rotated(deg2rad(-80));
+
+	local_cache = {
+		"move_dir": local_move_dir,
+		"look_side": local_look_side,
+		"mouse_dir": mouse_dir,
+		"look_side_vec2": local_look_side_vec2,
+	};
+	
+	rset_unreliable_id(1, "s_move_dir", local_move_dir);
+	rset_unreliable_id(1, "s_look_dir", local_look_side);
 	
 func check_cache() -> void:
 	var send_to_serv: bool = false;
