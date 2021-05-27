@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Resources/PlayerClass.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+name = ""
+max_hp = 0.0
+default_def = 0.0
+movement_speed = 0.0

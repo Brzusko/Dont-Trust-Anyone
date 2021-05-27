@@ -13,7 +13,6 @@ export var kinematic_body_path: NodePath;
 export var animation_tree_path: NodePath;
 export var head_path: NodePath;
 export var body_path: NodePath;
-export var stats_path: NodePath;
 export var move_speed: float = 10.0;
 onready var state_machine: StateMachine = get_parent();
 onready var kinematic_body: KinematicBody2D = get_node(kinematic_body_path);
