@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Assets/Player/Knight-body.png" type="Texture" id=1]
 [ext_resource path="res://Scenes/Player/Player.gd" type="Script" id=2]
@@ -9,8 +9,10 @@
 [ext_resource path="res://Scenes/Player/Idle.gd" type="Script" id=7]
 [ext_resource path="res://Scenes/Player/Move.gd" type="Script" id=8]
 [ext_resource path="res://Scenes/Player/Health.gd" type="Script" id=9]
-[ext_resource path="res://Assets/Player/Knight-Hand.png" type="Texture" id=10]
-[ext_resource path="res://Scenes/Player/WeaponHand.gd" type="Script" id=11]
+[ext_resource path="res://Scenes/Player/Hands.gd" type="Script" id=10]
+[ext_resource path="res://Scenes/Weapons/MeleeWeapon.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/Player/IdleAttack.gd" type="Script" id=12]
+[ext_resource path="res://Scenes/Player/MoveAttack.gd" type="Script" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 6.9863, 7.42043 )
@@ -91,7 +93,7 @@ nodes/TimeScale/position = Vector2( 42, 231 )
 nodes/Transition/node = SubResource( 8 )
 nodes/Transition/position = Vector2( 273, 105 )
 nodes/output/position = Vector2( 567, 126 )
-node_connections = [ "output", 0, "Transition", "TimeScale", 0, "Run", "TimeScale 2", 0, "Idle", "Transition", 0, "TimeScale 2", "Transition", 1, "TimeScale" ]
+node_connections = [ "output", 0, "Transition", "Transition", 0, "TimeScale 2", "Transition", 1, "TimeScale", "TimeScale 2", 0, "Idle", "TimeScale", 0, "Run" ]
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -102,7 +104,7 @@ position = Vector2( 0, -16 )
 texture = ExtResource( 1 )
 hframes = 8
 vframes = 2
-frame = 2
+frame = 1
 
 [node name="Head" type="Sprite" parent="."]
 position = Vector2( -0.396851, -17.2623 )
@@ -114,6 +116,7 @@ shape = SubResource( 1 )
 
 [node name="Input" type="Node2D" parent="."]
 script = ExtResource( 5 )
+hands_path = NodePath("../Hands")
 
 [node name="StateMachine" parent="." instance=ExtResource( 6 )]
 input_path = NodePath("../Input")
@@ -132,6 +135,12 @@ animation_tree_path = NodePath("../../AnimationTree")
 head_path = NodePath("../../Head")
 body_path = NodePath("../../Body")
 move_speed = 100.0
+
+[node name="IdleAttack" type="Node" parent="StateMachine"]
+script = ExtResource( 12 )
+
+[node name="MoveAttack" type="Node" parent="StateMachine"]
+script = ExtResource( 13 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Idle = SubResource( 2 )
@@ -153,10 +162,17 @@ script = ExtResource( 9 )
 position = Vector2( -0.198425, 0.0224299 )
 shape = SubResource( 1 )
 
-[node name="WeaponHand" type="Position2D" parent="."]
-position = Vector2( 0, -8 )
-script = ExtResource( 11 )
+[node name="Hands" type="Position2D" parent="."]
+position = Vector2( 0, -9 )
+script = ExtResource( 10 )
+__meta__ = {
+"_gizmo_extents_": 2.0
+}
 
-[node name="Hand" type="Sprite" parent="WeaponHand"]
-position = Vector2( -11.227, 1.6027 )
-texture = ExtResource( 10 )
+[node name="Left" type="Position2D" parent="Hands"]
+position = Vector2( -7, 0 )
+
+[node name="Right" type="Position2D" parent="Hands"]
+position = Vector2( 7, 0 )
+
+[node name="MeeleWeapon" parent="Hands" instance=ExtResource( 11 )]

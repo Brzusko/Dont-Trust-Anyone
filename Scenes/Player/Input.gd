@@ -3,11 +3,15 @@ class_name StateInput
 
 master var s_move_dir: int = Enums.MOVE_DIR.NONE;
 master var s_look_dir: int = Enums.LOOK_SIDE.NONE;
+master var s_is_attacking: bool = false;
+master var s_is_blocking: bool = false;
 
 var local_move_dir: int = Enums.MOVE_DIR.NONE;
 var local_look_side: int = Enums.LOOK_SIDE.NONE;
 var local_look_side_vec2: Vector2 = Vector2.ZERO;
 var local_aim_dir: Vector2 = Vector2.ZERO;
+var local_is_blocking: bool = false;
+var local_is_attacking: bool = false;
 
 var intersect_point: Vector2 = Vector2.ZERO;
 
@@ -28,6 +32,8 @@ var local_cache = {
 	"look_side": Enums.LOOK_SIDE.NONE,
 	"mouse_dir": Vector2.ZERO,
 	"look_side_vec2": Vector2.ZERO,
+	"is_attacking": false,
+	"is_blocking": false,
 };
 
 var move_directions: Dictionary = {
@@ -64,6 +70,9 @@ var vector_map: Dictionary = {
 
 onready var parent = get_parent() as Player;
 
+export var hands_path: NodePath;
+onready var hands = get_node(hands_path) as Hands;
+
 func _process(delta):
 	if !parent.is_local:
 		return;
@@ -93,7 +102,11 @@ func generate_data() -> void:
 		"look_side": local_look_side,
 		"mouse_dir": mouse_dir,
 		"look_side_vec2": local_look_side_vec2,
+		"is_attacking": false,
+		"is_blocking": false,
 	};
+	
+	hands.rotate_hands(local_aim_dir * 50);
 	
 	rset_unreliable_id(1, "s_move_dir", local_move_dir);
 	rset_unreliable_id(1, "s_look_dir", local_look_side);
@@ -109,6 +122,7 @@ func check_cache() -> void:
 		local_cache.look_side = local_look_side;
 		GameUi.change_cursor_pos(vector_map[local_look_side] * 100);
 		local_aim_dir = vector_map[local_look_side];
+		hands.rotate_hands(local_aim_dir * 50);
 		aim_vertices[0] = local_aim_dir.rotated(deg2rad(Globals.MEELE_ANGLE));
 		aim_vertices[1] = local_aim_dir.rotated(deg2rad(-Globals.MEELE_ANGLE));
 		send_to_serv = true;
@@ -116,13 +130,22 @@ func check_cache() -> void:
 	if local_cache.look_side_vec2 != local_look_side_vec2 && local_look_side != Enums.LOOK_SIDE.NONE:
 		local_cache.look_side_vec2 = local_look_side_vec2;
 	
+	if local_cache.is_attacking != local_is_attacking:
+		local_cache.is_attacking = local_is_attacking;
+		send_to_serv = true;
+	
+	if local_cache.is_blocking != local_is_blocking:
+		local_cache.is_blocking = local_is_blocking;
+		send_to_serv = true;
+	
 	fov[0] = local_cache.look_side_vec2.rotated(deg2rad(80));
 	fov[1] = local_cache.look_side_vec2.rotated(deg2rad(-80));
 	
 	if send_to_serv:
 		rset_unreliable_id(1, "s_move_dir", local_move_dir);
 		rset_unreliable_id(1, "s_look_dir", local_look_side);
-		pass;
+		rset_id(1, "s_is_attacking", local_is_attacking);
+		rset_id(1, "s_is_blocking", local_is_attacking);
 	
 
 	
@@ -137,6 +160,9 @@ func process_inputs() -> void:
 	
 	local_look_side = look_directions[Utils.vec2_str(unit_vector)];
 	local_look_side_vec2 = vector_map[local_look_side];
+	
+	local_is_attacking = Input.is_action_pressed("attack");
+	local_is_blocking = Input.is_action_pressed("block");
 
 func _input(event):
 	if event is InputEventMouseMotion && parent.is_local:
@@ -145,6 +171,7 @@ func _input(event):
 		if local_cache.look_side_vec2.dot(mouse_dir) >= Globals.AREA_DOT:
 			local_aim_dir = mouse_dir;
 			intersect_point = GameUi.get_cursor_pos();
+			hands.rotate_hands(local_aim_dir * 50);
 		else:
 			GameUi.set_cursor_pos(intersect_point);
 		
@@ -163,10 +190,10 @@ func get_networked_input() -> Dictionary:
 func _draw() -> void:
 	if !parent.is_local:
 		return;
-	draw_line(Vector2.ZERO, local_aim_dir * 100, Color.white);
-	draw_line(Vector2.ZERO, local_cache.look_side_vec2 * 100, Color.blue);
-	draw_line(Vector2.ZERO, fov[0].normalized() * 100, Color.red);
-	draw_line(Vector2.ZERO, fov[1].normalized() * 100, Color.red);
+	draw_line(Vector2.UP * 10, local_aim_dir * 100, Color.white);
+	draw_line(Vector2.UP * 10, local_cache.look_side_vec2 * 100, Color.blue);
+	draw_line(Vector2.UP * 10, fov[0].normalized() * 100, Color.red);
+	draw_line(Vector2.UP * 10, fov[1].normalized() * 100, Color.red);
 	for vec in aim_vertices:
-		draw_line(Vector2.ZERO, vec * 100, Color.green);
+		draw_line(Vector2.UP * 10, vec * 100, Color.green);
 	pass;
