@@ -8,11 +8,27 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "Clock",
+"language": "GDScript",
+"path": "res://Autoload/Clock.gd"
+} ]
+_global_script_class_icons={
+"Clock": ""
+}
+
 [application]
 
 config/name="Don't Trust Anyone"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Globals="*res://Autoload/Globals.tscn"
+Enums="*res://Autoload/Enums.tscn"
+Networking="*res://Autoload/Networking.tscn"
 
 [editor_plugins]
 
