@@ -4,6 +4,8 @@ signal disconnected_from_server
 signal registred
 signal time_sync_done
 
+signal rtt_update(rtt)
+
 var network: NetworkedMultiplayerENet;
 var is_connection_pending: bool = false;
 
@@ -44,6 +46,9 @@ func disconnect_from_server():
 func send_credentials(cred: Dictionary):
 	rpc_id(1, "register_player", cred);
 # events
+
+func rtt_updated(rtt: int):
+	emit_signal("rtt_update", rtt);
 
 func on_connect():
 	emit_signal("connected_to_server");

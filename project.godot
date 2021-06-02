@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "Clock",
 "language": "GDScript",
 "path": "res://Autoload/Clock.gd"
+}, {
+"base": "Label",
+"class": "DebugLabel",
+"language": "GDScript",
+"path": "res://UI/DebugLabel.gd"
 } ]
 _global_script_class_icons={
-"Clock": ""
+"Clock": "",
+"DebugLabel": ""
 }
 
 [application]
