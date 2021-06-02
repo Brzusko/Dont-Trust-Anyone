@@ -1,11 +1,12 @@
 extends Node
 class_name Clock
 
-const TIMER_TICK = 3;
+const TIMER_TICK = 1;
+const CLOCK_RELOAD = 10;
 const LETANECY_ITERATIONS = 9;
 
 var timer: Timer;
-var timer_iteration = 0;
+var timer_iteration = 1;
 
 var letanecy = [];
 var rtt = 0;
@@ -27,10 +28,10 @@ func create_timer():
 # remote methods
 remote func recive_time(server_time, client_time):
 	letanecy.append((OS.get_system_time_msecs() - client_time) / 2);
-	if letanecy.size() == 1 && first_load:
-		time = server_time;
+	
+	if first_load:
+		time = server_time + (OS.get_system_time_msecs() - client_time) / 2;
 		rtt = (OS.get_system_time_msecs() - client_time) / 2;
-		set_physics_process(true);
 		first_load = false;
 		
 		Networking.rtt_updated(rtt);
@@ -38,6 +39,7 @@ remote func recive_time(server_time, client_time):
 		rpc_id(1, "clock_synced", {
 			"pn": Globals.DEFAULT_NAME,
 		});
+		
 		
 	if letanecy.size() >= LETANECY_ITERATIONS:
 		var letanecy_sum = 0;
@@ -54,6 +56,11 @@ remote func recive_time(server_time, client_time):
 		
 		letanecy.clear();
 
+	var test2 = server_time + (OS.get_system_time_msecs() - client_time) / 2;
+	print("t: " + str(time) +", ts: " + str(test2));
+	print(time - test2)
+	pass;
+
 # events
 func on_register():
 	# time sync
@@ -66,11 +73,15 @@ func timer_tick():
 # virtual methods
 func _ready():
 	var _e = Networking.connect("registred", self, "on_register");
-	set_physics_process(false);
 
 func _physics_process(delta):
+	if first_load:
+		return;
 	time += int(delta * 1000) + delta_letanecy;
-	reminder = (delta * 1000) - int(delta * 1000);
+	reminder += (delta * 1000) - int(delta * 1000);
+	
+	delta_letanecy -= delta_letanecy;
+	
 	if reminder >= 1.0:
 		time += 1.0;
 		reminder -= 1.0;
