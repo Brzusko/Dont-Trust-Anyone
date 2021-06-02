@@ -8,54 +8,11 @@
 
 config_version=4
 
-_global_script_classes=[ {
-"base": "Resource",
-"class": "AbstractClass",
-"language": "GDScript",
-"path": "res://Resources/PlayerClass.gd"
-}, {
-"base": "Position2D",
-"class": "Hands",
-"language": "GDScript",
-"path": "res://Scenes/Player/Hands.gd"
-}, {
-"base": "KinematicBody2D",
-"class": "Player",
-"language": "GDScript",
-"path": "res://Scenes/Player/Player.gd"
-}, {
-"base": "Node2D",
-"class": "StateInput",
-"language": "GDScript",
-"path": "res://Scenes/Player/Input.gd"
-}, {
-"base": "Node",
-"class": "StateMachine",
-"language": "GDScript",
-"path": "res://Scenes/StateMachine/StateMachine.gd"
-} ]
-_global_script_class_icons={
-"AbstractClass": "",
-"Hands": "",
-"Player": "",
-"StateInput": "",
-"StateMachine": ""
-}
-
 [application]
 
 config/name="Don't Trust Anyone"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
-
-[autoload]
-
-Enums="*res://Autoload/Enums.tscn"
-Networking="*res://Autoload/Networking.tscn"
-Clock="*res://Autoload/Clock.tscn"
-Globals="*res://Autoload/Globals.tscn"
-Utils="*res://Autoload/Utils.tscn"
-GameUi="*res://UI/GameUI.tscn"
 
 [editor_plugins]
 
