@@ -56,10 +56,10 @@ remote func recive_time(server_time, client_time):
 		
 		letanecy.clear();
 
-	var test2 = server_time + (OS.get_system_time_msecs() - client_time) / 2;
-	print("t: " + str(time) +", ts: " + str(test2));
-	print(time - test2)
-	pass;
+#	var test2 = server_time + (OS.get_system_time_msecs() - client_time) / 2;
+#	print("t: " + str(time) +", ts: " + str(test2));
+#	print(time - test2)
+#	pass;
 
 # events
 func on_register():

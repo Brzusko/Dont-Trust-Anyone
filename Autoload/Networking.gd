@@ -9,6 +9,10 @@ signal rtt_update(rtt)
 var network: NetworkedMultiplayerENet;
 var is_connection_pending: bool = false;
 
+onready var scenes = {
+	Enums.PLAYER_SCENES.WORLD: preload("res://Scenes/World/World.tscn"),
+}
+
 func connect_to_server(address: String, port: int):
 	if is_connection_pending:
 		return;
@@ -66,7 +70,6 @@ func on_diconnect():
 # remote methods
 remote func on_player_register():
 	emit_signal("registred");
-	print("registred");
 
 # virtual methods
 func _ready():

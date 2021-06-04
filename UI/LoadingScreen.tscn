@@ -1,0 +1,170 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://UI/VersionLabel.gd" type="Script" id=1]
+[ext_resource path="res://UI/LoadingScreen.gd" type="Script" id=2]
+[ext_resource path="res://UI/DebugLabel.gd" type="Script" id=3]
+[ext_resource path="res://Resources/Fonts/ka1.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Resources/Fonts/Footer.tres" type="DynamicFont" id=5]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.0509804, 0.0509804, 0.0509804, 1 )
+
+[sub_resource type="Theme" id=2]
+Panel/styles/panel = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 35
+font_data = ExtResource( 4 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 20
+font_data = ExtResource( 4 )
+
+[sub_resource type="Theme" id=5]
+default_font = SubResource( 4 )
+
+[sub_resource type="Animation" id=6]
+resource_name = "DotAnim"
+length = 2.0
+loop = true
+step = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("LoadingAnimation/Dots/Dot1:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, true, true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("LoadingAnimation/Dots/Dot2:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, false, true, true ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("LoadingAnimation/Dots/Dot3:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ false, false, false, true ]
+}
+
+[node name="LoadingScreen" type="Panel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource( 2 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false,
+"_edit_vertical_guides_": [ 251.17, 750.098, 401.1, 601.428 ]
+}
+
+[node name="Version" type="Label" parent="."]
+anchor_left = 0.731
+anchor_top = 0.96
+anchor_right = 0.892
+anchor_bottom = 1.0
+margin_left = 35.456
+margin_right = -0.40802
+custom_fonts/font = ExtResource( 5 )
+text = "Version: "
+align = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LoadingStage" type="Label" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 13.5676
+margin_top = -24.7029
+margin_right = 235.568
+margin_bottom = -0.702881
+custom_fonts/font = ExtResource( 5 )
+text = "Current step - "
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="."]
+anchor_left = 0.249
+anchor_top = 0.338
+anchor_right = 0.727
+anchor_bottom = 0.405
+margin_left = 0.0239868
+margin_top = 0.199982
+margin_right = -0.448059
+margin_bottom = -1.52588e-05
+custom_fonts/font = SubResource( 3 )
+text = "Test"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LoadingAnimation" type="HBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.46
+anchor_right = 0.5
+anchor_bottom = 0.532
+margin_left = -108.0
+margin_right = 84.0
+margin_bottom = -0.200012
+theme = SubResource( 5 )
+custom_constants/separation = 25
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Loading" type="Label" parent="LoadingAnimation"]
+margin_top = 9.0
+margin_right = 120.0
+margin_bottom = 33.0
+text = "Loading "
+
+[node name="Dots" type="HBoxContainer" parent="LoadingAnimation"]
+margin_left = 145.0
+margin_right = 189.0
+margin_bottom = 43.0
+
+[node name="Dot1" type="Label" parent="LoadingAnimation/Dots"]
+margin_top = 9.0
+margin_right = 12.0
+margin_bottom = 33.0
+text = "."
+
+[node name="Dot2" type="Label" parent="LoadingAnimation/Dots"]
+margin_left = 16.0
+margin_top = 9.0
+margin_right = 28.0
+margin_bottom = 33.0
+text = "."
+
+[node name="Dot3" type="Label" parent="LoadingAnimation/Dots"]
+margin_left = 32.0
+margin_top = 9.0
+margin_right = 44.0
+margin_bottom = 33.0
+text = "."
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/DotAnim = SubResource( 6 )
