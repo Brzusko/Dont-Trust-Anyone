@@ -42,7 +42,7 @@ window/vsync/use_vsync=false
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/ClientSpawner/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/ClientSpawner/plugin.cfg", "res://addons/Todo_Manager/plugin.cfg" )
 
 [input]
 

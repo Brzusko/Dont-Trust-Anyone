@@ -17,7 +17,7 @@ var time = 0;
 
 var first_load = true;
 
-func create_timer():
+func sync_clock():
 	timer = Timer.new();
 	timer.autostart = false;
 	timer.wait_time = TIMER_TICK;
@@ -36,10 +36,7 @@ remote func recive_time(server_time, client_time):
 		
 		Networking.rtt_updated(rtt);
 		
-		rpc_id(1, "clock_synced", {
-			"pn": Globals.DEFAULT_NAME,
-		});
-		
+		rpc_id(1, "clock_synced", Globals.player_credentials);
 		
 	if letanecy.size() >= LETANECY_ITERATIONS:
 		var letanecy_sum = 0;
@@ -50,6 +47,7 @@ remote func recive_time(server_time, client_time):
 				letanecy.remove(i);
 			else:
 				letanecy_sum += letanecy[i];
+				
 		delta_letanecy = (letanecy_sum / letanecy.size()) - rtt;
 		rtt = letanecy_sum / letanecy.size();
 		Networking.rtt_updated(rtt);
@@ -64,15 +62,12 @@ remote func recive_time(server_time, client_time):
 # events
 func on_register():
 	# time sync
-	create_timer();
-	pass;
+	sync_clock();
 
 func timer_tick():
 	rpc_id(1, "get_letanecy", OS.get_system_time_msecs());
 
 # virtual methods
-func _ready():
-	var _e = Networking.connect("registred", self, "on_register");
 
 func _physics_process(delta):
 	if first_load:

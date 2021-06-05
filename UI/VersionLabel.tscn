@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://UI/VersionLabel.gd" type="Script" id=1]
+[ext_resource path="res://Resources/Fonts/Footer.tres" type="DynamicFont" id=2]
+
+[node name="Version" type="Label"]
+anchor_left = 0.731
+anchor_top = 0.96
+anchor_right = 0.892
+anchor_bottom = 1.0
+margin_left = 35.456
+margin_right = -0.40802
+custom_fonts/font = ExtResource( 2 )
+text = "Version: "
+align = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

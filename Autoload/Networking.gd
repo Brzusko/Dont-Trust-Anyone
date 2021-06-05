@@ -1,8 +1,9 @@
 extends Node
-signal connected_to_server
-signal disconnected_from_server
-signal registred
-signal time_sync_done
+signal connected_to_server;
+signal disconnected_from_server;
+signal registred;
+signal time_sync_done;
+signal fetched_world(world_data);
 
 signal rtt_update(rtt)
 
@@ -40,6 +41,7 @@ func clear_network():
 	network.disconnect("connection_failed", self, "on_fail");
 	network.disconnect("server_disconnected", self, "on_disconnect");
 	network = null;
+	
 	get_tree().network_peer = null;
 	is_connection_pending = false;
 
@@ -49,6 +51,9 @@ func disconnect_from_server():
 
 func send_credentials(cred: Dictionary):
 	rpc_id(1, "register_player", cred);
+
+func sync_clock():
+	$Clock.sync_clock();
 # events
 
 func rtt_updated(rtt: int):
@@ -56,21 +61,22 @@ func rtt_updated(rtt: int):
 
 func on_connect():
 	emit_signal("connected_to_server");
-	send_credentials({
-		"pn": Globals.DEFAULT_NAME
-	})
 
 func on_fail():
 	clear_network();
 
 func on_diconnect():
 	clear_network();
-	emit_signal("connected_to_server");
+	emit_signal("disconnected_from_server");
 
 # remote methods
 remote func on_player_register():
 	emit_signal("registred");
 
-# virtual methods
-func _ready():
-	connect_to_server(Globals.DEFAULT_ADDRESS, Globals.DEFAULT_PORT);
+remote func on_time_sync():
+	emit_signal("time_sync_done");
+
+remote func on_world_fetch(world_data: Dictionary):
+	emit_signal("fetched_world", world_data);
+	print(world_data);
+
