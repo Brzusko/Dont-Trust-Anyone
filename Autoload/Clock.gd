@@ -1,6 +1,8 @@
 extends Node
 class_name Clock
 
+# FIXME cancel rpc calls while disconnected from server
+
 const TIMER_TICK = 1;
 const CLOCK_RELOAD = 10;
 const LETANECY_ITERATIONS = 9;
@@ -24,6 +26,22 @@ func sync_clock():
 	timer.connect("timeout", self, "timer_tick");
 	add_child(timer);
 	timer.start();
+	set_physics_process(true);
+
+func clear():
+	if timer != null:
+		timer.stop();
+		timer.call_deferred("free");
+		timer = null;
+	
+	rtt = 0;
+	reminder = 0;
+	time = 0;
+	delta_letanecy = 0;
+	letanecy.clear();
+	first_load = true;
+	
+	set_physics_process(false);
 
 # remote methods
 remote func recive_time(server_time, client_time):
@@ -63,11 +81,17 @@ remote func recive_time(server_time, client_time):
 func on_register():
 	# time sync
 	sync_clock();
+	
+func on_disconnect():
+	clear();
 
 func timer_tick():
 	rpc_id(1, "get_letanecy", OS.get_system_time_msecs());
 
 # virtual methods
+
+func _ready():
+	var _e = Networking.connect("disconnected_from_server", self, "on_disconnect");
 
 func _physics_process(delta):
 	if first_load:

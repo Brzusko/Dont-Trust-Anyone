@@ -13,14 +13,14 @@ bg_color = Color( 0.0509804, 0.0509804, 0.0509804, 1 )
 [sub_resource type="Theme" id=2]
 Panel/styles/panel = SubResource( 1 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=3]
 size = 20
 font_data = ExtResource( 4 )
 
-[sub_resource type="Theme" id=5]
-default_font = SubResource( 4 )
+[sub_resource type="Theme" id=4]
+default_font = SubResource( 3 )
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 resource_name = "DotAnim"
 length = 2.0
 loop = true
@@ -113,7 +113,7 @@ anchor_bottom = 0.532
 margin_left = -108.0
 margin_right = 84.0
 margin_bottom = -0.200012
-theme = SubResource( 5 )
+theme = SubResource( 4 )
 custom_constants/separation = 25
 __meta__ = {
 "_edit_use_anchors_": false
@@ -151,4 +151,4 @@ margin_bottom = 33.0
 text = "."
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/DotAnim = SubResource( 6 )
+anims/DotAnim = SubResource( 5 )

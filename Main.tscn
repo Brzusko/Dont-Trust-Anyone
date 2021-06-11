@@ -8,7 +8,7 @@
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 2 )
-scenes = [ "res://Scenes/World/World.tscn", "" ]
+world_scene = "res://Scenes/World/World.tscn"
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource( 5 )
@@ -17,7 +17,16 @@ script = ExtResource( 5 )
 
 [node name="LoadingScreen" parent="UI" instance=ExtResource( 3 )]
 visible = false
+next_ui_path = NodePath("../GameUI")
+failure_ui_path = NodePath(".")
 
 [node name="Debug" parent="UI" instance=ExtResource( 1 )]
+
+[node name="GameUI" type="Control" parent="UI"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="CurrentScene" type="Node2D" parent="."]

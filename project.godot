@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node2D",
+"class": "BaseWorld",
+"language": "GDScript",
+"path": "res://Scenes/World/World.gd"
+}, {
 "base": "Node",
 "class": "Clock",
 "language": "GDScript",
@@ -18,10 +23,17 @@ _global_script_classes=[ {
 "class": "DebugLabel",
 "language": "GDScript",
 "path": "res://UI/DebugLabel.gd"
+}, {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://Scenes/Sync/Dynamic/Player.gd"
 } ]
 _global_script_class_icons={
+"BaseWorld": "",
 "Clock": "",
-"DebugLabel": ""
+"DebugLabel": "",
+"Player": ""
 }
 
 [application]
