@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/World/World.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Sync/Dynamic/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/World/Players.gd" type="Script" id=3]
+
+[node name="World" type="Node2D"]
+script = ExtResource( 1 )
+player_scene = ExtResource( 2 )
+
+[node name="Players" type="YSort" parent="."]
+script = ExtResource( 3 )
+player_scene = ExtResource( 2 )
