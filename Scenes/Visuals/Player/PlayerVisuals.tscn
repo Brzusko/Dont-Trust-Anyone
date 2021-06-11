@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Scenes/Visuals/Player/PlayerVisuals.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Characters/human/head/tone 1/head_1.png" type="Texture" id=2]
@@ -45,7 +45,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ Vector2( 0, -1 ), Vector2( 0, 0 ), Vector2( 0, 1 ), Vector2( 0, 0 ) ]
+"values": [ Vector2( 0, 11 ), Vector2( 0, 12 ), Vector2( 0, 13 ), Vector2( 0, 12 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Body:animation")
@@ -75,7 +75,7 @@ tracks/2/keys = {
 [sub_resource type="Animation" id=3]
 resource_name = "Walk"
 loop = true
-step = 0.25
+step = 0.125
 tracks/0/type = "value"
 tracks/0/path = NodePath("Head:position")
 tracks/0/interp = 1
@@ -83,26 +83,80 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.125, 0.25, 0.5, 0.625, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ Vector2( 0, -1 ), Vector2( 0, -2 ), Vector2( 0, -1.66667 ), Vector2( 0, -1.33333 ) ]
+"values": [ Vector2( 0, 12 ), Vector2( 0, 13 ), Vector2( 0, 11 ), Vector2( 0, 12 ), Vector2( 0, 13 ), Vector2( 0, 11 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "Run" ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Body:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
 }
 
-[sub_resource type="AnimationNodeBlendTree" id=4]
-graph_offset = Vector2( 0, 50.75 )
+[sub_resource type="AnimationNodeAnimation" id=4]
+animation = "Idle"
+
+[sub_resource type="AnimationNodeTransition" id=5]
+input_count = 2
+input_0/name = "is_on_idle"
+input_0/auto_advance = false
+input_1/name = "is_running"
+input_1/auto_advance = false
+
+[sub_resource type="AnimationNodeAnimation" id=6]
+animation = "Walk"
+
+[sub_resource type="AnimationNodeTimeScale" id=9]
+
+[sub_resource type="AnimationNodeTimeScale" id=8]
+
+[sub_resource type="AnimationNodeBlendTree" id=7]
+graph_offset = Vector2( -142.142, 290.25 )
+nodes/Idle/node = SubResource( 4 )
+nodes/Idle/position = Vector2( 0, 100 )
+nodes/Motion/node = SubResource( 5 )
+nodes/Motion/position = Vector2( 460, 180 )
+nodes/Run/node = SubResource( 6 )
+nodes/Run/position = Vector2( -40, 300 )
+nodes/idle_scale/node = SubResource( 9 )
+nodes/idle_scale/position = Vector2( 200, 100 )
+nodes/output/position = Vector2( 660, 120 )
+nodes/run_scale/node = SubResource( 8 )
+nodes/run_scale/position = Vector2( 180, 280 )
+node_connections = [ "output", 0, "Motion", "Motion", 0, "idle_scale", "Motion", 1, "run_scale", "idle_scale", 0, "Idle", "run_scale", 0, "Run" ]
 
 [node name="PlayerVisuals" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="Head" type="Node2D" parent="."]
-position = Vector2( 0, -2 )
+position = Vector2( 0, 12 )
 
 [node name="Head" type="Sprite" parent="Head"]
 position = Vector2( 0, -18 )
 texture = ExtResource( 2 )
 
 [node name="Hair" type="Sprite" parent="Head"]
+visible = false
 position = Vector2( 0, -19 )
 texture = ExtResource( 3 )
 
@@ -115,11 +169,11 @@ position = Vector2( 1, -23 )
 texture = ExtResource( 6 )
 
 [node name="Body" type="AnimatedSprite" parent="."]
-position = Vector2( 0, -20 )
+position = Vector2( 0, -7 )
 z_index = -1
 frames = SubResource( 1 )
-animation = "Idle"
-frame = 1
+animation = "Run"
+frame = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 1.25
@@ -127,5 +181,9 @@ anims/Idle = SubResource( 2 )
 anims/Walk = SubResource( 3 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 4 )
+tree_root = SubResource( 7 )
 anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/Motion/current = 1
+parameters/idle_scale/scale = 1.25
+parameters/run_scale/scale = 1.25
