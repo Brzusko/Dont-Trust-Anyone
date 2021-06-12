@@ -131,7 +131,7 @@ animation = "Walk"
 [sub_resource type="AnimationNodeTimeScale" id=8]
 
 [sub_resource type="AnimationNodeBlendTree" id=7]
-graph_offset = Vector2( -142.142, 290.25 )
+graph_offset = Vector2( -142.142, 17.25 )
 nodes/Idle/node = SubResource( 4 )
 nodes/Idle/position = Vector2( 0, 100 )
 nodes/Motion/node = SubResource( 5 )
@@ -172,8 +172,8 @@ texture = ExtResource( 6 )
 position = Vector2( 0, -7 )
 z_index = -1
 frames = SubResource( 1 )
-animation = "Run"
-frame = 4
+animation = "Idle"
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 1.25
@@ -184,6 +184,6 @@ anims/Walk = SubResource( 3 )
 tree_root = SubResource( 7 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/Motion/current = 1
+parameters/Motion/current = 0
 parameters/idle_scale/scale = 1.25
 parameters/run_scale/scale = 1.25

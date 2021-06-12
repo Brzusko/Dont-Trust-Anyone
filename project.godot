@@ -28,12 +28,18 @@ _global_script_classes=[ {
 "class": "Player",
 "language": "GDScript",
 "path": "res://Scenes/Sync/Dynamic/Player.gd"
+}, {
+"base": "Node",
+"class": "PlayerInput",
+"language": "GDScript",
+"path": "res://Scenes/Sync/Dynamic/Input.gd"
 } ]
 _global_script_class_icons={
 "BaseWorld": "",
 "Clock": "",
 "DebugLabel": "",
-"Player": ""
+"Player": "",
+"PlayerInput": ""
 }
 
 [application]
@@ -90,6 +96,7 @@ block={
 
 [physics]
 
+common/physics_jitter_fix=0.0
 common/enable_pause_aware_picking=true
 
 [rendering]

@@ -52,7 +52,7 @@ func _physics_process(delta):
 		world_states.remove(0);
 	
 	var interpolation_scale = float(render_time - world_states[0].t) / (world_states[1].t - world_states[0].t);
-	$Players.process_states(world_states[0].p, world_states[1].p, interpolation_scale);
+	$Players.process_states(world_states[0].p, world_states[1].p, interpolation_scale, delta);
 
 
 remote func verify_result(is_fine: bool, world_data: Dictionary):
