@@ -26,9 +26,12 @@ func _ready():
 		disable_camera();
 		set_physics_process(false);
 		set_process_input(false);
-	
+
+func move_player(velocity: Vector2, delta :float):
+	move_and_collide(velocity * (delta * MOVE_SPEED));
+
 func send_input(input, delta):
-	move_and_collide(input.v * (delta * MOVE_SPEED));
+	move_player(input.v, delta);
 	rpc_unreliable_id(1, "recive_input", input);
 	
 func enable_camera():
@@ -39,17 +42,10 @@ func disable_camera():
 	$Camera.current = false;
 	$Camera.hide();	
 
-func _physics_process(delta):
-	pass;
-
 func serialize():
 	return {
 		"n": name,
 	}
 
-func _draw():
-	if !is_master:
-		return;
-	draw_circle(to_local(server_pos), 5.0, Color.red);
 
 		

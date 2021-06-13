@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scenes/World/World.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Sync/Dynamic/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/World/Players.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/World/Players.tscn" type="PackedScene" id=3]
 [ext_resource path="res://icon.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -12,9 +12,7 @@ extents = Vector2( 29.4991, 31.451 )
 script = ExtResource( 1 )
 player_scene = ExtResource( 2 )
 
-[node name="Players" type="YSort" parent="."]
-script = ExtResource( 3 )
-player_scene = ExtResource( 2 )
+[node name="Players" parent="." instance=ExtResource( 3 )]
 
 [node name="icon" type="Sprite" parent="."]
 position = Vector2( -10.745, -236.91 )
