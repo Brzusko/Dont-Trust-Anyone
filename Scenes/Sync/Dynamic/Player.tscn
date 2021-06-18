@@ -1,10 +1,17 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scenes/Visuals/Player/PlayerVisuals.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scenes/Sync/Dynamic/Player.gd" type="Script" id=2]
 [ext_resource path="res://Scenes/Sync/Dynamic/Input.gd" type="Script" id=3]
+[ext_resource path="res://Resources/Fonts/pixelart.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Scenes/Sync/Dynamic/PlayerName.gd" type="Script" id=5]
+[ext_resource path="res://Scenes/Sync/Dynamic/FOA.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
+
+[sub_resource type="DynamicFont" id=2]
+size = 8
+font_data = ExtResource( 4 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -18,5 +25,34 @@ shape = SubResource( 1 )
 [node name="Camera" type="Camera2D" parent="."]
 zoom = Vector2( 0.3, 0.3 )
 
-[node name="Input" type="Node" parent="."]
+[node name="Input" type="Node2D" parent="."]
 script = ExtResource( 3 )
+
+[node name="PlayerName" type="Control" parent="."]
+margin_left = -21.0
+margin_top = -37.0
+margin_right = 19.0
+margin_bottom = -20.0
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="PlayerName"]
+anchor_left = 0.5
+anchor_top = 0.412
+anchor_right = 0.5
+anchor_bottom = 0.412
+margin_left = -20.0
+margin_top = -7.004
+margin_right = 20.0
+margin_bottom = 6.996
+custom_fonts/font = SubResource( 2 )
+text = "Test"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FOA" parent="." instance=ExtResource( 6 )]

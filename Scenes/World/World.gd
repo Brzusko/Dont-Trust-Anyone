@@ -14,12 +14,6 @@ export(PackedScene) var player_scene;
 
 # first non sync, next sync static, next sync dynamic
 
-# TODO - Map world_structure
-# TODO - Create new entities
-# TODO - Send world to verify
-# TODO - Create new entities if necessary
-# TODO - Send rpc with information is world created
-# TODO - Start syncing data
 
 func map_objects(world_data: Dictionary):
 	$Players.create_players(world_data.p);

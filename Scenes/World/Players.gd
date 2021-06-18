@@ -25,10 +25,8 @@ func process_states(current_players: Dictionary, feature_players: Dictionary, in
 			continue;
 		if !feature_players.has(player.n):
 			continue;
-		
-		
-		var player_obj = get_node(player.n) as Player;
-		
+	
+		var player_obj = get_node(player.n) as Player;	
 		if player_obj.is_master:
 			var player_inputs = player_obj.get_node("Input") as PlayerInput;
 			var inputs = player_inputs.unprocessed_inputs.values();
@@ -42,13 +40,12 @@ func process_states(current_players: Dictionary, feature_players: Dictionary, in
 					player_inputs.unprocessed_inputs.erase(inputs[i].i);
 				else:
 					player_obj.move_player(inputs[i].v, delta);
+					pass;
 			
 				i +=1;
 			continue;
 #
-		
-		var new_pos = lerp(player.p, feature_players[player.n].p, interpolation);
-		player_obj.global_position = new_pos;
+		player_obj.interpolate_states(player, feature_players[player.n], interpolation, delta);
 
 		
 

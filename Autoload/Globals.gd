@@ -8,6 +8,8 @@ const CREDENTIALS_FIELDS = [
 	"pn"
 ]
 
+var movement_actions = ["up", "right", "down", "left", "right"];
+
 var player_credentials: Dictionary = {};
 
 func set_credentials(cred: Dictionary):
